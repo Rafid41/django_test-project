@@ -1,7 +1,7 @@
 from .models import Post, OrderList, PlacedOrder, Comment
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import View, UpdateView
@@ -111,6 +111,11 @@ class ProfileView(UpdateView):
     form_class = ProfileForm
     success_url = reverse_lazy("home")
     template_name = "commons/profile.html"
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("login"))
 
 
 # Post Handling
